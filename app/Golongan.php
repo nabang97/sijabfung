@@ -8,9 +8,10 @@ class Golongan extends Model
 {
     //
     protected $table = 'golongans';
+    protected $fillable = ['name'];
 
-    public function pegawai()
+    public function pegawais()
     {
-        return $this->belongsTo('App\Pegawai', 'nip');
+        return $this->hasMany('App\Pegawai', 'id');
     }
 }

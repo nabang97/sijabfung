@@ -13,4 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', 'GolonganController@index');
+
+Route::view('/admin/golongan', 'admin.golongan');
+
+Route::view('/admin/jabatan', 'admin.jabatan');
+
+Route::view('/admin/pegawai', 'admin.pegawai');
