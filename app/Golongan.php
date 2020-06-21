@@ -9,6 +9,7 @@ class Golongan extends Model
     //
     protected $table = 'golongans';
     protected $fillable = ['name'];
+    public $timestamps = true;
 
     public function pegawais()
     {

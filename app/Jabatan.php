@@ -8,10 +8,11 @@ class Jabatan extends Model
 {
     //
     protected $table = 'jabatans';
+    protected $primaryKey = 'id';
     protected $fillable = ['name'];
 
     public function kondisi()
     {
-        return $this->belongsTo('App\Kondisi', 'jabatan');
+        return $this->hasMany('App\Kondisi', 'id');
     }
 }
