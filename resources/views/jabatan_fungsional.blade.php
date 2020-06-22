@@ -81,7 +81,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-container">
-                        <div class="table-jabfung" style="width:100%">
+                        <div class="table-jabfung">
                             <table class="table table-bordered" id="tableDiklat" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>

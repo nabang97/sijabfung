@@ -1,0 +1,68 @@
+@media (max-width: 1024px) {
+    .item > img {
+        height: 40vh !important;
+    }
+
+    footer > .container {
+        flex-direction: column;
+    }
+
+    .item-footer:nth-child(2) {
+        margin-left: 0px !important;
+    }
+}
+
+@media (max-height: 360px) {
+    .item > img {
+        height: 100vh !important;
+    }
+
+    footer > .container {
+        flex-direction: column;
+    }
+
+    .item-footer:nth-child(2) {
+        margin-left: 0px !important;
+    }
+}
+
+@media (max-width: 990px) {
+    .navbar-sijabfung {
+        grid-template-areas:
+            "navbar-logo-sb user-menu navbar-toggle-sb"
+            "navbar-menu-sb navbar-menu-sb navbar-menu-sb";
+    }
+
+    .navbar-menu-sb {
+        grid-auto-columns: auto;
+        grid-auto-rows: auto auto;
+        grid-template-areas:
+            "navbar-menu-list"
+            ".";
+    }
+    .navbar-menu-sb > ul.navbar-menu-list {
+        margin: 0px;
+    }
+    .item-footer:nth-child(1),
+    .item-footer:nth-child(2) {
+        text-align: center;
+        margin: 0px auto !important;
+    }
+    .footer-nav {
+        margin: 0px auto !important;
+    }
+    .contact {
+        text-align: center;
+        margin: 0px auto !important;
+    }
+    .search-sijabfung-group {
+        display: unset;
+    }
+    .search-sijabfung-group > div {
+        display: unset !important;
+    }
+
+    #dasar-hukum-jumbotron {
+        background-position: center !important;
+    }
+}

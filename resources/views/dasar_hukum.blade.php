@@ -14,19 +14,17 @@
     </center>
     <br>
     <center>
-        <form action="" method="get">
-            <div class="search-dasar-hukum">
-                <div class="search-sijabfung-group form-inline">
-                    <div class="search-input">
-                        <input type="text" name="" id="searchInputDasarHukum" class="form-control form-sijabfung"
-                            placeholder="Masukan kata kunci">
-                    </div>
-                    <div class="search-button">
-                        <button type="button" class="btn-jabfung" id="searchDasarHukum">Search</button>
-                    </div>
+        <div class="search-dasar-hukum">
+            <div class="search-sijabfung-group">
+                <div class="search-input">
+                    <input type="text" name="" id="searchInputDasarHukum" class="form-control form-sijabfung"
+                        placeholder="Masukan kata kunci">
+                </div>
+                <div class="search-button">
+                    <button type="button" class="btn-jabfung" id="searchDasarHukum">Search</button>
                 </div>
             </div>
-        </form>
+        </div>
     </center>
     <br>
     <div id="newest-dasar-hukum">

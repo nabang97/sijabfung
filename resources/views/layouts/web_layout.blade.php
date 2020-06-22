@@ -19,7 +19,7 @@
     <style>
         .item {
             background-color: pink;
-            max-height: 450px;
+            /* max-height: 100vh; */
         }
 
         .owl-dots {
@@ -72,21 +72,14 @@
 
 <body>
     <header>
-        <nav>
-            <div class="logo-sijabfung">
+        <!-- Image and text -->
+        <nav class="navbar-sijabfung">
+            <div class="navbar-logo-sb">
                 <a href="#" class="logo">
                     <img src="{{ asset('/img/logo-sumbar.png') }}" alt="" width="45px">
                 </a>
             </div>
-            <div class="navbar-sijabfung">
-                <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/dasar-hukum/all">Dasar Hukum</a></li>
-                    <li><a href="/jabatan-fungsional">Jabatan Fungsional</a></li>
-                    <li><a href="">Tentang Kami</a></li>
-                </ul>
-            </div>
-            <div class="search-sijabfung dropdown">
+            <div class="user-menu dropdown">
                 <div class="dropdown dropleft">
                     <a href="/login" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-alt"></i></a>
@@ -106,6 +99,44 @@
                     </div>
                 </div>
             </div>
+            <button class="navbar-toggle-sb btn btn-default" type="button" collapse-target="#sijabfungMenu"
+                button-role="collapse" collapse-status=true><i class="fas fa-bars 7x"></i></button>
+            <div class="navbar-menu-sb" id="sijabfungMenu">
+                <ul class="navbar-menu-list">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/dasar-hukum/all">Dasar Hukum</a></li>
+                    <li><a href="/jabatan-fungsional">Jabatan Fungsional</a></li>
+                    <li><a href="">Tentang Kami</a></li>
+                </ul>
+                <!-- <div class="navbar-sijabfung">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/dasar-hukum/all">Dasar Hukum</a></li>
+                    <li><a href="/jabatan-fungsional">Jabatan Fungsional</a></li>
+                    <li><a href="">Tentang Kami</a></li>
+                </ul>
+            </div>
+            <div class="search-sijabfung dropdown">
+                <div class="dropdown dropleft">
+                    <a href="/login" class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-alt"></i></a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+@if(Auth::user())
+@if(Auth::user()->role == 1)
+                                <a class="dropdown-item" href="/admin/golongan">Dashboard</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+@else
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+@endif
+@else
+                            <a class="dropdown-item" href="/login">Login</a>
+                            <a class="dropdown-item" href="/register">Register</a>
+@endif
+                    </div>
+                </div>
+            </div> -->
+            </div>
         </nav>
         @yield('header')
     </header>
@@ -115,7 +146,7 @@
     <footer>
         <div class="container">
             <div class="item-footer">
-                <h2 style="margin:0px"><strong>BPSDM Sumbar</strong></h2>
+                <h2><strong>BPSDM Sumbar</strong></h2>
                 <span style="font-size: 12px"><b>Badan Pengembangan Sumber Daya Manusia</b></span>
                 <div class="footer-nav">
                     <ul>
@@ -128,7 +159,7 @@
             </div>
             <div class="item-footer">
                 <div class="contact">
-                    <h5 style="margin: 0px;font-size:unser">Kontak</h5>
+                    <h5>Kontak</h5>
                 </div>
                 <div class=" contact-container">
                     <div class="contact-group">
@@ -186,6 +217,48 @@
 
     </script>
     @yield('script')
+    <script>
+        $(document).ready(() => {
+            const btnCollapse = $('button[button-role="collapse"]');
+            const menuCollapse = $('.navbar-menu-sb');
+            const collapseTarget = $(btnCollapse).attr("collapse-target");
+            let collapseStatus = $(btnCollapse).attr('collapse-status');
+
+            function btnCollapseFunction(x) {
+                if (x.matches) { // If media query matches
+                    $(btnCollapse).removeClass("collapse");
+                    $(menuCollapse).addClass("collapse");
+                    $(collapseTarget).addClass("navbar-expanded");
+                } else {
+                    $(btnCollapse).addClass("collapse");
+                    $(menuCollapse).removeClass("collapse");
+                    $(collapseTarget).removeClass("navbar-expanded");
+                }
+            }
+
+            $(btnCollapse).click(() => {
+                // $(collapseTarget).attr('collapse-status', `${!collapseStatus}`);
+                $(btnCollapse).attr("collapse-status", function (i, origValue) {
+                    if (origValue == 'true') {
+                        $(collapseTarget).removeClass("collapse");
+                        $(collapseTarget).addClass("navbar-expanded");
+
+                        return false;
+                    } else {
+                        $(collapseTarget).addClass("collapse");
+                        $(collapseTarget).removeClass("navbar-expanded");
+                        return true;
+                    }
+                });
+            });
+
+            var x = window.matchMedia("(max-width: 990px)")
+            btnCollapseFunction(x) // Call listener function at run time
+            x.addListener(btnCollapseFunction) // Attach listener function on state changes
+
+        })
+
+    </script>
 </body>
 
 </html>

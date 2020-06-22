@@ -1,147 +1,174 @@
 const selectOptionIntansiPembina = () => {
-    return $.get("/api/instansi-pembina", function (data, status) {
-            const selectInstansiPembina = $('select[name="instansi_pembina"]');
-            selectInstansiPembina.empty();
-            selectInstansiPembina.append(`<option value="0" >Pilih Instansi Pembina</option>`);
-            data.forEach(element => {
-                selectInstansiPembina.append(`<option value=${element.id}>${element.name}</option>`)
-            });
-        })
-        .done(function (e) {})
-        .fail(function (e) {})
-        .always(function (e) {});
-}
+    return $.get("/api/instansi-pembina", function(data, status) {
+        const selectInstansiPembina = $('select[name="instansi_pembina"]');
+        selectInstansiPembina.empty();
+        selectInstansiPembina.append(
+            `<option value="0" >Pilih Instansi Pembina</option>`
+        );
+        data.forEach(element => {
+            selectInstansiPembina.append(
+                `<option value=${element.id}>${element.name}</option>`
+            );
+        });
+    })
+        .done(function(e) {})
+        .fail(function(e) {})
+        .always(function(e) {});
+};
 
-const selectOptionRumpunJabatan = (value) => {
+const selectOptionRumpunJabatan = value => {
     console.log(value);
 
-    return $.get("/api/rumpun-jabatan-option", {
+    return $.get(
+        "/api/rumpun-jabatan-option",
+        {
             id: value
-        }, function (result, status) {
+        },
+        function(result, status) {
             const selectRumpunJabatan = $('select[name="rumpun_jabatan"]');
             selectRumpunJabatan.empty();
-            selectRumpunJabatan.append(`<option value="0">Pilih Rumpun Jabatan</option>`);
+            selectRumpunJabatan.append(
+                `<option value="0">Pilih Rumpun Jabatan</option>`
+            );
             result.forEach(element => {
-                selectRumpunJabatan.append(`<option value=${element.id}>${element.nama}</option>`)
+                selectRumpunJabatan.append(
+                    `<option value=${element.id}>${element.nama}</option>`
+                );
             });
-        })
-        .done(function (e) {
+        }
+    )
+        .done(function(e) {
             console.log(e);
-
         })
-        .fail(function (e) {})
-        .always(function (e) {});
+        .fail(function(e) {})
+        .always(function(e) {});
+};
 
-}
-
-const selectOptionJabatanFungsional = (value) => {
+const selectOptionJabatanFungsional = value => {
     console.log(value);
 
-    return $.get("/api/jabatan-fungsional-option", {
+    return $.get(
+        "/api/jabatan-fungsional-option",
+        {
             id: value
-        }, function (result, status) {
+        },
+        function(result, status) {
             const selectJabfung = $('select[name="jabatan_fungsional"]');
             selectJabfung.empty();
-            selectJabfung.append(`<option value="0">Pilih Jabatan Fungsional</option>`);
+            selectJabfung.append(
+                `<option value="0">Pilih Jabatan Fungsional</option>`
+            );
             result.forEach(element => {
                 console.log(element.id);
-                selectJabfung.append(`<option value=${element.id}>${element.nama}</option>`)
+                selectJabfung.append(
+                    `<option value=${element.id}>${element.nama}</option>`
+                );
             });
-        })
-        .fail(function (e) {})
+        }
+    ).fail(function(e) {});
+};
 
-}
+const selectOptionJenjangKategoriLingkup = data => {
+    return $.get("/api/jenjang-jabatan/option", data, function(data, status) {
+        const selectKategori = $('select[name="jenjang_kategori_lingkup"]');
+        selectKategori.empty();
+        selectKategori.append(
+            `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>`
+        );
+        data.forEach(element => {
+            console.log(element);
 
-
-const selectOptionJenjangKategoriLingkup = (data) => {
-    return $.get("/api/jenjang-jabatan/option", data, function (data, status) {
-            const selectKategori = $('select[name="jenjang_kategori_lingkup"]');
-            selectKategori.empty();
-            selectKategori.append(`<option value="0">Pilih Jenjang-Kategori-Lingkup</option>`);
-            data.forEach(element => {
-                console.log(element);
-
-                selectKategori.append(`<option value=${element.id}>${element.jenjang} - ${element.kategori} - ${element.lingkup == 1 ? 'Pusat' : 'Daerah'}</option>`)
-            });
-        })
-        .done(function (e) {
+            selectKategori.append(
+                `<option value=${element.id}>${element.jenjang} - ${
+                    element.kategori
+                } - ${element.lingkup == 1 ? "Pusat" : "Daerah"}</option>`
+            );
+        });
+    })
+        .done(function(e) {
             console.log(e);
-
         })
-        .fail(function (e) {
+        .fail(function(e) {
             console.log(e);
         })
-        .always(function (e) {
+        .always(function(e) {
             console.log(e);
         });
-}
+};
 
-const register = (data) => {
-    if ($('.alert-sijabfung')) {
-        $('.alert-sijabfung').remove();
+const register = data => {
+    if ($(".alert-sijabfung")) {
+        $(".alert-sijabfung").remove();
     }
-    return $.post("/api/register/create", {
+    return $.post(
+        "/api/register/create",
+        {
             data
-        }, function (data, status) {
+        },
+        function(data, status) {
             console.log(status);
-
-        })
-        .done((response) => {
+        }
+    )
+        .done(response => {
             if (response.error) {
-                $('.data-alert').before(`<div class="alert-sijabfung alert-sijabfung-danger">${response.message}</div>`);
+                $(".data-alert").before(
+                    `<div class="alert-sijabfung alert-sijabfung-danger">${response.message}</div>`
+                );
             } else {
                 createAccount(data);
             }
-
         })
-        .fail(function (data) {
+        .fail(function(data) {
             console.log(data);
-        })
+        });
+};
 
-}
-
-const createAccount = (data) => {
-    if ($('.alert-sijabfung')) {
-        $('.alert-sijabfung').remove();
+const createAccount = data => {
+    if ($(".alert-sijabfung")) {
+        $(".alert-sijabfung").remove();
     }
     return $.post("/api/register/create/account", {
-            data
-        })
-        .done((response) => {
+        data
+    })
+        .done(response => {
             console.log(response);
 
             if (response.error) {
-                $('.data-alert').before(`<div class="alert-sijabfung alert-sijabfung-danger">${response.message}</div>`);
+                $(".data-alert").before(
+                    `<div class="alert-sijabfung alert-sijabfung-danger">${response.message}</div>`
+                );
             } else {
-                $('.data-alert').before(`<div class="alert-sijabfung alert-sijabfung-success">${response.message}</div>`);
+                $(".data-alert").before(
+                    `<div class="alert-sijabfung alert-sijabfung-success">${response.message}</div>`
+                );
 
                 document.getElementById("form-regis").reset();
             }
-
         })
-        .fail(function (data) {
+        .fail(function(data) {
             console.log(data);
-        })
-
-}
-
-const getGolongan = function () {
-    $.get("/api/golongan", function (data, status) {
-
-        data.forEach(element => {
-            $('select[name="golongan"]').append(`<option value=${element.id}>${element.name}</option>`)
         });
-    });
-}
+};
 
-
-
+const getGolongan = function() {
+    $.get("/api/golongan", function(data, status) {
+        data.forEach(element => {
+            $('select[name="golongan"]').append(
+                `<option value=${element.id}>${element.name}</option>`
+            );
+        });
+    })
+        .done(e => {})
+        .fail(e => {
+            console.log(e);
+        });
+};
 
 $(document).ready(() => {
     selectOptionIntansiPembina();
     getGolongan();
 
-    $('.datepicker').datepicker({
+    $(".datepicker").datepicker({
         dateFormat: "mm-dd-yy",
         todayBtn: "linked",
         clearBtn: true,
@@ -152,59 +179,67 @@ $(document).ready(() => {
     });
 
     $('select[name="golongan"]').change(() => {
-
         console.log($('select[name="golongan"]').val());
-
-    })
+    });
 
     // show option rumpun jabatan
-    $('select[name="instansi_pembina"]').change(function () {
+    $('select[name="instansi_pembina"]').change(function() {
         console.log($(this).val());
 
         selectOptionRumpunJabatan($(this).val());
         $('select[name="jabatan_fungsional"]').empty();
-        $('select[name="jabatan_fungsional"]').append(`<option>Pilih Jabatan Fungsional</option>`);
-
+        $('select[name="jabatan_fungsional"]').append(
+            `<option>Pilih Jabatan Fungsional</option>`
+        );
     });
     // show option jabatan fungsional
-    $('select[name="rumpun_jabatan"]').change(function () {
+    $('select[name="rumpun_jabatan"]').change(function() {
         console.log($(this).val());
         selectOptionJabatanFungsional($(this).val());
     });
 
-    $('select[name="jabatan_fungsional"]').change(function () {
+    $('select[name="jabatan_fungsional"]').change(function() {
         const data = {
             id_jabfung: $(this).val()
-
-        }
+        };
         selectOptionJenjangKategoriLingkup(data);
-    })
-
-
-
-
+    });
 
     // add the rule here
-    $.validator.addMethod("valueEquals", function (value, element, arg) {
-        return arg != value;
-    }, "Value must equal arg.");
+    $.validator.addMethod(
+        "valueEquals",
+        function(value, element, arg) {
+            return arg != value;
+        },
+        "Value must equal arg."
+    );
 
-    $.validator.addMethod("valueNotEquals", function (value, element, arg) {
-        if (value == $('input[name="password"]').val()) {
-            return true;
-        }
-        return false;
-    }, "Password and confirm password fields do not match");
+    $.validator.addMethod(
+        "valueNotEquals",
+        function(value, element, arg) {
+            if (value == $('input[name="password"]').val()) {
+                return true;
+            }
+            return false;
+        },
+        "Password and confirm password fields do not match"
+    );
 
-    $.validator.addMethod("passwordCheck", function (value, element, arg) {
-        var reg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-        if (reg.test(value)) {
-            return true
-        }
-        return false;
-    }, "Password must be eight characters or longer, contain at least 1 lowercase alphabetical character, 1 uppercase alphabetical character,1 numeric character, least one special character")
+    $.validator.addMethod(
+        "passwordCheck",
+        function(value, element, arg) {
+            var reg = new RegExp(
+                "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+            );
+            if (reg.test(value)) {
+                return true;
+            }
+            return false;
+        },
+        "Password must be eight characters or longer, contain at least 1 lowercase alphabetical character, 1 uppercase alphabetical character,1 numeric character, least one special character"
+    );
 
-    $('#form-regis').validate({
+    $("#form-regis").validate({
         rules: {
             email: {
                 required: true,
@@ -219,7 +254,7 @@ $(document).ready(() => {
             },
             confirm_password: {
                 required: true,
-                valueNotEquals: true,
+                valueNotEquals: true
             },
             nip: {
                 required: true,
@@ -258,7 +293,6 @@ $(document).ready(() => {
                 required: true,
                 valueEquals: 0
             }
-
         },
         messages: {
             email: {
@@ -269,7 +303,8 @@ $(document).ready(() => {
             },
             password: {
                 required: "Sandi is required",
-                passwordCheck: "Password must be eight characters or longer, contain at least 1 lowercase alphabetical character, 1 uppercase alphabetical character,1 numeric character, least one special character"
+                passwordCheck:
+                    "Password must be eight characters or longer, contain at least 1 lowercase alphabetical character, 1 uppercase alphabetical character,1 numeric character, least one special character"
             },
             confirm_password: {
                 required: "Konfirm Sandi is required",
@@ -309,9 +344,9 @@ $(document).ready(() => {
             },
             unit_kerja_saat_ini: {
                 required: "Unit kerja is required"
-            },
+            }
         },
-        submitHandler: function (form) {
+        submitHandler: function(form) {
             console.log(form);
             const email = $('input[name="email"]').val();
             const password = $('input[name="password"]').val();
@@ -319,8 +354,15 @@ $(document).ready(() => {
             const nip = $('input[name="nip"]').val();
             const nama = $('input[name="nama"]').val();
             const tempatLahir = $('input[name="tempat_lahir"]').val();
-            const tanggalLahir = $('input[name="tanggal_lahir"]').val() != null ? Date.parse($('input[name="tanggal_lahir"]').val()).toString('yyyy-MM-dd') : null;
-            const jenjangJabatan = $('select[name="jenjang_kategori_lingkup"]').val();
+            const tanggalLahir =
+                $('input[name="tanggal_lahir"]').val() != null
+                    ? Date.parse(
+                          $('input[name="tanggal_lahir"]').val()
+                      ).toString("yyyy-MM-dd")
+                    : null;
+            const jenjangJabatan = $(
+                'select[name="jenjang_kategori_lingkup"]'
+            ).val();
             const unitKerja = $('input[name="unit_kerja_saat_ini"]').val();
             const golongan = $('select[name="golongan"]').val();
             const data = {
@@ -334,9 +376,9 @@ $(document).ready(() => {
                 tanggal_lahir: tanggalLahir,
                 jenjang_kategori_lingkup: jenjangJabatan,
                 unit_kerja_saat_ini: unitKerja
-            }
+            };
 
             register(data);
         }
-    })
+    });
 });

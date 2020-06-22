@@ -1,0 +1,23 @@
+.card-sijabfung{
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+.card-sijabfung-header{
+    padding: 15px;
+    background-color: #eee;
+    border-radius: 10px 10px 0px 0px;
+    border-bottom: 1px solid #ddd;
+}
+.card-sijabfung-header>h3{
+    text-align:left
+}
+.card-sijabfung-body{
+    padding: 15px;
+    background-color: white;
+    border-radius: 0px 0px 10px 10px;
+}
+ main .container.register{
+     padding: 0px 100px;
+ }
