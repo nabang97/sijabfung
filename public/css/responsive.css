@@ -65,4 +65,14 @@
     #dasar-hukum-jumbotron {
         background-position: center !important;
     }
+    .edit-information-details {
+        flex-direction: column-reverse;
+    }
+    .profile-container {
+        flex-direction: column;
+        margin: 0px;
+    }
+    .sijabfung-inline-group {
+        flex-direction: column !important;
+    }
 }

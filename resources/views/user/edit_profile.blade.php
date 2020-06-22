@@ -28,7 +28,7 @@
                     <input type="text" name="tempat_lahir" class="form-control form-sijabfung" placeholder=""
                         value="{{ Auth::user()->pegawai->birthday_place }}" required>
                 </div>
-                <div class="form-sijabfung-group" style="margin-left:15px">
+                <div class="form-sijabfung-group">
                     <label for="unitKerja">Tanggal Lahir</label>
                     <input type="text" name="tanggal_lahir" class="form-control form-sijabfung datepicker"
                         placeholder=""
