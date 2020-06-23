@@ -94,7 +94,9 @@ const updatePegawai = data => {
             }
         })
         .fail(function(e) {
-            console.log(e);
+            $(".data-alert").before(
+                `<div class="alert alert-danger">${e.responseJSON.message}</div>`
+            );
         })
         .always(function(e) {});
 };
