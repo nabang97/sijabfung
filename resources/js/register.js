@@ -1,3 +1,5 @@
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
+
 const selectOptionIntansiPembina = () => {
     return $.get("/api/instansi-pembina", function (data, status) {
             const selectInstansiPembina = $('select[name="instansi_pembina"]');
@@ -17,7 +19,7 @@ const selectOptionIntansiPembina = () => {
 };
 
 const selectOptionRumpunJabatan = value => {
-    console.log(value);
+
 
     return $.get(
             "/api/rumpun-jabatan-option", {
@@ -44,7 +46,7 @@ const selectOptionRumpunJabatan = value => {
 };
 
 const selectOptionJabatanFungsional = value => {
-    console.log(value);
+
 
     return $.get(
         "/api/jabatan-fungsional-option", {
@@ -83,15 +85,8 @@ const selectOptionJenjangKategoriLingkup = data => {
                 );
             });
         })
-        .done(function (e) {
-            console.log(e);
-        })
-        .fail(function (e) {
-            console.log(e);
-        })
-        .always(function (e) {
-            console.log(e);
-        });
+        .done(function (e) {})
+        .fail(function (e) {})
 };
 
 const register = data => {
@@ -100,11 +95,10 @@ const register = data => {
     }
     return $.post(
             "/api/register/create", {
-                data
+                data,
+                _token: CSRF_TOKEN
             },
-            function (data, status) {
-                console.log(status);
-            }
+            function (data, status) {}
         )
         .done(response => {
             if (response.error) {
@@ -115,9 +109,7 @@ const register = data => {
                 createAccount(data);
             }
         })
-        .fail(function (data) {
-            console.log(data);
-        });
+        .fail(function (data) {});
 };
 
 const createAccount = data => {
@@ -125,10 +117,10 @@ const createAccount = data => {
         $(".alert-sijabfung").remove();
     }
     return $.post("/api/register/create/account", {
-            data
+            data,
+            _token: CSRF_TOKEN
         })
         .done(response => {
-            console.log(response);
 
             if (response.error) {
                 $(".data-alert").before(
@@ -142,9 +134,7 @@ const createAccount = data => {
                 document.getElementById("form-regis").reset();
             }
         })
-        .fail(function (data) {
-            console.log(data);
-        });
+        .fail(function (data) {});
 };
 
 const getGolongan = function () {
@@ -156,9 +146,7 @@ const getGolongan = function () {
             });
         })
         .done(e => {})
-        .fail(e => {
-            console.log(e);
-        });
+        .fail(e => {});
 };
 
 $(document).ready(() => {
