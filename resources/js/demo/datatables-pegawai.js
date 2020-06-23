@@ -95,7 +95,7 @@ const updatePegawai = data => {
         })
         .fail(function(e) {
             $(".data-alert").before(
-                `<div class="alert alert-danger">${e.responseJSON.message}</div>`
+                `<div class="alert alert-danger">Terjadi kesalahan pada server. Silakan hubungi operator dan coba beberapa saat lagi.</div>`
             );
         })
         .always(function(e) {});
@@ -774,7 +774,7 @@ $(document).ready(function() {
         },
         submitHandler: form => {
             let data = {
-                nipBeforeUpdate: nipBeforeUpdate,
+                nipBeforeUpdate: parseInt(nipBeforeUpdate),
                 nip: $(form)
                     .find('input[name="nip"]')
                     .val(),
