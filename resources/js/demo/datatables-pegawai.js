@@ -72,17 +72,30 @@ const getGolongan = function() {
 getGolongan();
 
 const updatePegawai = data => {
+    if ($(".alert")) {
+        $(".alert").remove();
+    }
+
     $.post("/api/pegawai/update", {
         data: data,
         _token: CSRF_TOKEN
     })
         .done(function(e) {
-            tablePegawai.ajax.reload();
-            if (!e.error) {
+            if (e.error) {
+                $(".data-alert").before(
+                    `<div class="alert alert-danger">${e.message}</div>`
+                );
+            } else {
                 nipBeforeUpdate = data.nip;
+                $(".data-alert").before(
+                    `<div class="alert alert-success">${e.message}</div>`
+                );
+                tablePegawai.ajax.reload();
             }
         })
-        .fail(function(e) {})
+        .fail(function(e) {
+            console.log(e);
+        })
         .always(function(e) {});
 };
 
@@ -223,6 +236,9 @@ const getAccount = data => {
 };
 
 const showDataEdit = data => {
+    if ($(".alert")) {
+        $(".alert").remove();
+    }
     const element = $(".modal-body");
     nipBeforeUpdate = data.nip;
     element.find('input[name="nip"]').val(data.nip);
@@ -231,7 +247,7 @@ const showDataEdit = data => {
     element.find('input[name="tempat_lahir"]').val(data.birthday_place);
     element
         .find('input[name="tanggal_lahir"]')
-        .val(Date.parse(data.birthday_date).toString("dd-MM-yyyy"));
+        .val(Date.parse(data.birthday_date).toString("MM-dd-yyyy"));
     element.find('select[name="golongan"]').val(data.golongan);
     selectOptionIntansiPembina()
         .done(() => {
@@ -385,7 +401,9 @@ const updateAccount = data => {
         data
     })
         .done(function(e) {})
-        .fail(function(e) {});
+        .fail(function(e) {
+            console.log(e);
+        });
 };
 
 $(document).ready(function() {
