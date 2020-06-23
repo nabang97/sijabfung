@@ -89,7 +89,7 @@ class DasarHukumController extends Controller
           $image->file_path = $newname;
           $image->save();
           
-        return back()->with('success', 'Image uploaded successfully');
+        return back()->with('success', 'File uploaded successfully');
     }
 
     public function destroy(Request $request)
