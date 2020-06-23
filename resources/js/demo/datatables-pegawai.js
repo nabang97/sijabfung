@@ -81,12 +81,13 @@ const updatePegawai = data => {
         _token: CSRF_TOKEN
     })
         .done(function(e) {
+            console.log(e);
             if (e.error) {
                 $(".data-alert").before(
                     `<div class="alert alert-danger">${e.message}</div>`
                 );
             } else {
-                nipBeforeUpdate = data.nip;
+                nipBeforeUpdate = parseInt(data.nip);
                 $(".data-alert").before(
                     `<div class="alert alert-success">${e.message}</div>`
                 );
