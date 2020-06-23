@@ -76,7 +76,7 @@ const updatePegawai = data => {
         $(".alert").remove();
     }
 
-    $.post("/api/pegawai/update", {
+    $.post("/api/pegawai/profile/update", {
         data: data,
         _token: CSRF_TOKEN
     })

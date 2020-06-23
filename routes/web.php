@@ -98,7 +98,7 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
 
     Route::post('/api/pegawai/store', 'PegawaiController@store');
     Route::post('/api/pegawai/destroy', 'PegawaiController@destroy');
-    Route::post('/api/pegawai/update', 'PegawaiController@update');
+    Route::post('/api/pegawai/profile/update', 'PegawaiController@update');
     Route::post('/api/pegawai/account', 'PegawaiController@getAccount');
     Route::post('/api/pegawai/account/update', 'PegawaiController@updateAccount');
 
