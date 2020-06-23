@@ -112,7 +112,7 @@ $("#form-password").validate({
         },
         new_password: {
             required: true,
-            passwordCheck: true
+            passwordCheck: false
         },
         confirm_password: {
             required: true,

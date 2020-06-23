@@ -173,9 +173,9 @@ $("#form-profile").validate({
         },
         nip: {
             required: true,
-            maxlength: 9,
+            maxlength: 18,
             number: true,
-            minlength: 9
+            minlength: 18
         },
         tempat_lahir: {
             required: true
@@ -215,8 +215,8 @@ $("#form-profile").validate({
         },
         nip: {
             required: "NIP is required",
-            maxlength: "Panjang data harus 9 karakter",
-            minlength: "Panjang data harus 9 karakter",
+            maxlength: "Panjang data harus 18 karakter",
+            minlength: "Panjang data harus 18 karakter",
             number: "Data harus berupa angka"
         },
         tempat_lahir: {
