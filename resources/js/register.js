@@ -1,58 +1,54 @@
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
 
 const selectOptionIntansiPembina = () => {
-    return $.get("/api/instansi-pembina", function (data, status) {
-            const selectInstansiPembina = $('select[name="instansi_pembina"]');
-            selectInstansiPembina.empty();
+    return $.get("/api/instansi-pembina", function(data, status) {
+        const selectInstansiPembina = $('select[name="instansi_pembina"]');
+        selectInstansiPembina.empty();
+        selectInstansiPembina.append(
+            `<option value="0" >Pilih Instansi Pembina</option>`
+        );
+        data.forEach(element => {
             selectInstansiPembina.append(
-                `<option value="0" >Pilih Instansi Pembina</option>`
+                `<option value=${element.id}>${element.name}</option>`
             );
-            data.forEach(element => {
-                selectInstansiPembina.append(
-                    `<option value=${element.id}>${element.name}</option>`
-                );
-            });
-        })
-        .done(function (e) {})
-        .fail(function (e) {})
-        .always(function (e) {});
+        });
+    })
+        .done(function(e) {})
+        .fail(function(e) {})
+        .always(function(e) {});
 };
 
 const selectOptionRumpunJabatan = value => {
-
-
     return $.get(
-            "/api/rumpun-jabatan-option", {
-                id: value
-            },
-            function (result, status) {
-                const selectRumpunJabatan = $('select[name="rumpun_jabatan"]');
-                selectRumpunJabatan.empty();
+        "/api/rumpun-jabatan-option",
+        {
+            id: value
+        },
+        function(result, status) {
+            const selectRumpunJabatan = $('select[name="rumpun_jabatan"]');
+            selectRumpunJabatan.empty();
+            selectRumpunJabatan.append(
+                `<option value="0">Pilih Rumpun Jabatan</option>`
+            );
+            result.forEach(element => {
                 selectRumpunJabatan.append(
-                    `<option value="0">Pilih Rumpun Jabatan</option>`
+                    `<option value=${element.id}>${element.nama}</option>`
                 );
-                result.forEach(element => {
-                    selectRumpunJabatan.append(
-                        `<option value=${element.id}>${element.nama}</option>`
-                    );
-                });
-            }
-        )
-        .done(function (e) {
-            console.log(e);
-        })
-        .fail(function (e) {})
-        .always(function (e) {});
+            });
+        }
+    )
+        .done(function(e) {})
+        .fail(function(e) {})
+        .always(function(e) {});
 };
 
 const selectOptionJabatanFungsional = value => {
-
-
     return $.get(
-        "/api/jabatan-fungsional-option", {
+        "/api/jabatan-fungsional-option",
+        {
             id: value
         },
-        function (result, status) {
+        function(result, status) {
             const selectJabfung = $('select[name="jabatan_fungsional"]');
             selectJabfung.empty();
             selectJabfung.append(
@@ -65,86 +61,117 @@ const selectOptionJabatanFungsional = value => {
                 );
             });
         }
-    ).fail(function (e) {});
+    ).fail(function(e) {});
 };
 
 const selectOptionJenjangKategoriLingkup = data => {
-    return $.get("/api/jenjang-jabatan/option", data, function (data, status) {
-            const selectKategori = $('select[name="jenjang_kategori_lingkup"]');
-            selectKategori.empty();
-            selectKategori.append(
-                `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>`
-            );
-            data.forEach(element => {
-                console.log(element);
+    return $.get("/api/jenjang-jabatan/option", data, function(data, status) {
+        const selectKategori = $('select[name="jenjang_kategori_lingkup"]');
+        selectKategori.empty();
+        selectKategori.append(
+            `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>`
+        );
+        data.forEach(element => {
+            console.log(element);
 
-                selectKategori.append(
-                    `<option value=${element.id}>${element.jenjang} - ${
+            selectKategori.append(
+                `<option value=${element.id}>${element.jenjang} - ${
                     element.kategori
                 } - ${element.lingkup == 1 ? "Pusat" : "Daerah"}</option>`
-                );
-            });
-        })
-        .done(function (e) {})
-        .fail(function (e) {})
+            );
+        });
+    })
+        .done(function(e) {})
+        .fail(function(e) {});
 };
 
 const register = data => {
-    if ($(".alert-sijabfung")) {
-        $(".alert-sijabfung").remove();
+    console.log(data);
+
+    if ($(".alert")) {
+        $(".alert").remove();
     }
-    return $.post(
-            "/api/register/create", {
-                data,
-                _token: CSRF_TOKEN
-            },
-            function (data, status) {}
-        )
+    $.post("/api/register/create", {
+        data,
+        _token: CSRF_TOKEN
+    })
         .done(response => {
             if (response.error) {
-                $(".data-alert").before(
-                    `<div class="alert-sijabfung alert-sijabfung-danger">${response.message}</div>`
+                $(".register-button").before(
+                    `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    ${response.message}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>`
                 );
             } else {
                 createAccount(data);
             }
         })
-        .fail(function (data) {});
+        .fail(function(e) {
+            $(".register-button").before(
+                `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Terjadi kesalahan kesalahan. Silakan hubungi operator dan coba beberapa saat lagi
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>`
+            );
+        });
 };
 
 const createAccount = data => {
-    if ($(".alert-sijabfung")) {
-        $(".alert-sijabfung").remove();
+    if ($(".alert")) {
+        $(".alert").remove();
     }
-    return $.post("/api/register/create/account", {
-            data,
-            _token: CSRF_TOKEN
-        })
+    $.post("/api/register/create/account", {
+        data,
+        _token: CSRF_TOKEN
+    })
         .done(response => {
-
             if (response.error) {
-                $(".data-alert").before(
-                    `<div class="alert-sijabfung alert-sijabfung-danger">${response.message}</div>`
+                $(".register-button").before(
+                    `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    ${response.message}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>`
                 );
             } else {
-                $(".data-alert").before(
-                    `<div class="alert-sijabfung alert-sijabfung-success">${response.message}</div>`
+                $(".register-button").before(
+                    `<div class="alert alert-success alert-dismissible fade show" role="alert">
+                    ${response.message}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>`
                 );
 
                 document.getElementById("form-regis").reset();
             }
         })
-        .fail(function (data) {});
+        .fail(function(e) {
+            $(".register-button").before(
+                `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Terjadi kesalahan kesalahan. Silakan hubungi operator dan coba beberapa saat lagi
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>`
+            );
+        });
 };
 
-const getGolongan = function () {
-    $.get("/api/golongan", function (data, status) {
-            data.forEach(element => {
-                $('select[name="golongan"]').append(
-                    `<option value=${element.id}>${element.name}</option>`
-                );
-            });
-        })
+const getGolongan = function() {
+    $.get("/api/golongan", function(data, status) {
+        data.forEach(element => {
+            $('select[name="golongan"]').append(
+                `<option value=${element.id}>${element.name}</option>`
+            );
+        });
+    })
         .done(e => {})
         .fail(e => {});
 };
@@ -163,14 +190,8 @@ $(document).ready(() => {
         // autoclose: true
     });
 
-    $('select[name="golongan"]').change(() => {
-        console.log($('select[name="golongan"]').val());
-    });
-
     // show option rumpun jabatan
-    $('select[name="instansi_pembina"]').change(function () {
-        console.log($(this).val());
-
+    $('select[name="instansi_pembina"]').change(function() {
         selectOptionRumpunJabatan($(this).val());
         $('select[name="jabatan_fungsional"]').empty();
         $('select[name="jabatan_fungsional"]').append(
@@ -178,12 +199,11 @@ $(document).ready(() => {
         );
     });
     // show option jabatan fungsional
-    $('select[name="rumpun_jabatan"]').change(function () {
-        console.log($(this).val());
+    $('select[name="rumpun_jabatan"]').change(function() {
         selectOptionJabatanFungsional($(this).val());
     });
 
-    $('select[name="jabatan_fungsional"]').change(function () {
+    $('select[name="jabatan_fungsional"]').change(function() {
         const data = {
             id_jabfung: $(this).val()
         };
@@ -193,7 +213,7 @@ $(document).ready(() => {
     // add the rule here
     $.validator.addMethod(
         "valueEquals",
-        function (value, element, arg) {
+        function(value, element, arg) {
             return arg != value;
         },
         "Value must equal arg."
@@ -201,7 +221,7 @@ $(document).ready(() => {
 
     $.validator.addMethod(
         "valueNotEquals",
-        function (value, element, arg) {
+        function(value, element, arg) {
             if (value == $('input[name="password"]').val()) {
                 return true;
             }
@@ -212,7 +232,7 @@ $(document).ready(() => {
 
     $.validator.addMethod(
         "passwordCheck",
-        function (value, element, arg) {
+        function(value, element, arg) {
             var reg = new RegExp(
                 "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
             );
@@ -288,7 +308,8 @@ $(document).ready(() => {
             },
             password: {
                 required: "Sandi is required",
-                passwordCheck: "Password must be eight characters or longer, contain at least 1 lowercase alphabetical character, 1 uppercase alphabetical character,1 numeric character, least one special character"
+                passwordCheck:
+                    "Password must be eight characters or longer, contain at least 1 lowercase alphabetical character, 1 uppercase alphabetical character,1 numeric character, least one special character"
             },
             confirm_password: {
                 required: "Konfirm Sandi is required",
@@ -330,8 +351,7 @@ $(document).ready(() => {
                 required: "Unit kerja is required"
             }
         },
-        submitHandler: function (form) {
-            console.log(form);
+        submitHandler: function(form) {
             const email = $('input[name="email"]').val();
             const password = $('input[name="password"]').val();
             const confirmPassword = $('input[name="confirm_password"]').val();
@@ -339,11 +359,11 @@ $(document).ready(() => {
             const nama = $('input[name="nama"]').val();
             const tempatLahir = $('input[name="tempat_lahir"]').val();
             const tanggalLahir =
-                $('input[name="tanggal_lahir"]').val() != null ?
-                Date.parse(
-                    $('input[name="tanggal_lahir"]').val()
-                ).toString("yyyy-MM-dd") :
-                null;
+                $('input[name="tanggal_lahir"]').val() != null
+                    ? Date.parse(
+                          $('input[name="tanggal_lahir"]').val()
+                      ).toString("yyyy-MM-dd")
+                    : null;
             const jenjangJabatan = $(
                 'select[name="jenjang_kategori_lingkup"]'
             ).val();

@@ -1,42 +1,58 @@
-var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr("content");
 // add the rule here
-$.validator.addMethod("valueEquals", function (value, element, arg) {
-    return arg != value;
-}, "Value must equal arg.");
-$.validator.addMethod("valueNotEquals", function (value, element, arg) {
-    if (value == $('input[name="new_password"]').val()) {
-        return true;
-    }
-    return false;
-}, "Password and confirm password fields do not match");
-$.validator.addMethod("passwordCheck", function (value, element, arg) {
-        var reg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+$.validator.addMethod(
+    "valueEquals",
+    function(value, element, arg) {
+        return arg != value;
+    },
+    "Value must equal arg."
+);
+$.validator.addMethod(
+    "valueNotEquals",
+    function(value, element, arg) {
+        if (value == $('input[name="new_password"]').val()) {
+            return true;
+        }
+        return false;
+    },
+    "Password and confirm password fields do not match"
+);
+$.validator.addMethod(
+    "passwordCheck",
+    function(value, element, arg) {
+        var reg = new RegExp(
+            "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+        );
         if (reg.test(value)) {
-            return true
+            return true;
         }
         return false;
     },
     `Password must be eight characters or longer, contain at least 1 lowercase alphabetical character, 1 uppercase
     alphabetical character, 1 numeric character, least one special character `
-)
-const changeEmail = (data) => {
-    if ($('#form-email').find('.alert')) {
-        $('#form-email').find('.alert').remove();
+);
+const changeEmail = data => {
+    if ($("#form-email").find(".alert")) {
+        $("#form-email")
+            .find(".alert")
+            .remove();
     }
     $.post("/profile/setting/email", {
-            _token: CSRF_TOKEN,
-            data
-        })
-        .done(function (e) {
+        _token: CSRF_TOKEN,
+        data
+    })
+        .done(function(e) {
             if (e.error === false) {
-                $('#btnUpdateEmail').before(`<div class="alert alert-success alert-dismissible fade show" role="alert">
+                $("#btnUpdateEmail")
+                    .before(`<div class="alert alert-success alert-dismissible fade show" role="alert">
     ${e.message}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>`);
             } else {
-                $('#btnUpdateEmail').before(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                $("#btnUpdateEmail")
+                    .before(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
     ${e.message}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -44,29 +60,33 @@ const changeEmail = (data) => {
 </div>`);
             }
         })
-        .fail(function (e) {
+        .fail(function(e) {
             console.log(e);
         });
 };
-const changePassword = (data) => {
-    if ($('#form-password').find('.alert')) {
-        $('#form-password').find('.alert').remove();
+const changePassword = data => {
+    if ($("#form-password").find(".alert")) {
+        $("#form-password")
+            .find(".alert")
+            .remove();
     }
     $.post("/profile/setting/password", {
-            _token: CSRF_TOKEN,
-            data
-        })
-        .done(function (e) {
+        _token: CSRF_TOKEN,
+        data
+    })
+        .done(function(e) {
             if (e.error === false) {
-                $('#form-password')[0].reset();
-                $('#btnUpdatePassword').before(`<div class="alert alert-success alert-dismissible fade show" role="alert">
+                $("#form-password")[0].reset();
+                $("#btnUpdatePassword")
+                    .before(`<div class="alert alert-success alert-dismissible fade show" role="alert">
     ${e.message}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>`);
             } else {
-                $('#btnUpdatePassword').before(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                $("#btnUpdatePassword")
+                    .before(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
     ${e.message}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -74,8 +94,10 @@ const changePassword = (data) => {
 </div>`);
             }
         })
-        .fail(function (e) {
-            $('#btnUpdatePassword').before(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+        .fail(function(e) {
+            $(
+                "#btnUpdatePassword"
+            ).before(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
     Terjadi kesalahan saat mengubah password. Silakan hubungi kontak yang tersedia.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -95,7 +117,7 @@ $("#form-email").validate({
             required: "Email is required"
         }
     },
-    submitHandler: function (form) {
+    submitHandler: function(form) {
         const data = {
             email: $(form)
                 .find('input[name="email"]')
@@ -137,7 +159,7 @@ $("#form-password").validate({
             valueNotEquals: "Sandi dan Konfirmasi Sandi tidak cocok"
         }
     },
-    submitHandler: function (form) {
+    submitHandler: function(form) {
         const data = {
             oldPassword: $(form)
                 .find('input[name="old_password"]')

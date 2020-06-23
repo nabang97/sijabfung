@@ -41,6 +41,8 @@ Route::get('/api/jenjang-jabatan/option', 'JenjangJabatanController@optionByInde
 Route::get('/api/detail-jabfung/kategori-lingkup', 'DetailJabfungController@optionByIndex');
 Route::get('/api/rumpun-jabatan-option', 'RumpunJabatanController@optionByIndex');
 Route::get('/api/jabatan-fungsional-option', 'JabatanFungsionalController@optionByIndex');
+Route::post('/api/register/create', 'PegawaiController@store');
+Route::post('/api/register/create/account', 'PegawaiController@createAccount');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/logout', 'AuthController@logout');
@@ -100,8 +102,8 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::post('/api/pegawai/account', 'PegawaiController@getAccount');
     Route::post('/api/pegawai/account/update', 'PegawaiController@updateAccount');
 
-    Route::post('api/register/create', 'PegawaiController@store');
-    Route::post('api/register/create/account', 'PegawaiController@createAccount');
+    // Route::post('api/register/create', 'PegawaiController@store');
+    // Route::post('api/register/create/account', 'PegawaiController@createAccount');
 
     //kelola instansi pembina
     
