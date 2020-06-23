@@ -71,7 +71,7 @@ class DasarHukumController extends Controller
     public function store(Request $request)
     { 
           $validator = $request->validate([
-          'file' => 'required|mimes:pdf|max:2048',
+          'file' => 'required|mimes:pdf',
           ]);
   
           $image = new DasarHukum();  

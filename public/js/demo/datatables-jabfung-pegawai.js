@@ -1,1 +1,132 @@
-!function(t){var n={};function e(a){if(n[a])return n[a].exports;var r=n[a]={i:a,l:!1,exports:{}};return t[a].call(r.exports,r,r.exports,e),r.l=!0,r.exports}e.m=t,e.c=n,e.d=function(t,n,a){e.o(t,n)||Object.defineProperty(t,n,{enumerable:!0,get:a})},e.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},e.t=function(t,n){if(1&n&&(t=e(t)),8&n)return t;if(4&n&&"object"==typeof t&&t&&t.__esModule)return t;var a=Object.create(null);if(e.r(a),Object.defineProperty(a,"default",{enumerable:!0,value:t}),2&n&&"string"!=typeof t)for(var r in t)e.d(a,r,function(n){return t[n]}.bind(null,r));return a},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},e.p="/",e(e.s=61)}({61:function(t,n,e){t.exports=e(62)},62:function(t,n){$("#tableJabfungPegawai").DataTable({processing:!0,ajax:{url:"/api/jenjang-jabatan",dataType:"json",cache:!1,dataSrc:""},order:[[1,"asc"]],columns:[{render:function(t,n,e,a){return a.row+a.settings._iDisplayStart+1}},{data:"nama"},{data:"jabfung.nama"},{defaultContent:'<button type="button" id="btnEditJenjangJabatan" data-toggle="modal" data-target="#modalEditJenjangJabatan" class="btn btn-sm btn-primary" >Edit</button>\n            <button type="button"  id="btnRemoveJenjangJabatan" class="btn btn-sm btn-primary">Remove</button>\n            '}]})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/demo/datatables-jabfung-pegawai.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/demo/datatables-jabfung-pegawai.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var getJenjangJabatan = $('#tableJabfungPegawai').DataTable({
+  processing: true,
+  "ajax": {
+    "url": "/api/jenjang-jabatan",
+    "dataType": "json",
+    "cache": false,
+    "dataSrc": ""
+  },
+  "order": [[1, 'asc']],
+  columns: [{
+    render: function render(data, type, row, meta) {
+      return meta.row + meta.settings._iDisplayStart + 1;
+    }
+  }, {
+    'data': "nama"
+  }, {
+    'data': "jabfung.nama"
+  }, {
+    'defaultContent': "<button type=\"button\" id=\"btnEditJenjangJabatan\" data-toggle=\"modal\" data-target=\"#modalEditJenjangJabatan\" class=\"btn btn-sm btn-primary\" >Edit</button>\n            <button type=\"button\"  id=\"btnRemoveJenjangJabatan\" class=\"btn btn-sm btn-primary\">Remove</button>\n            "
+  }]
+});
+
+/***/ }),
+
+/***/ 14:
+/*!***************************************************************!*\
+  !*** multi ./resources/js/demo/datatables-jabfung-pegawai.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! E:\Projects\Git\sibafung-new\resources\js\demo\datatables-jabfung-pegawai.js */"./resources/js/demo/datatables-jabfung-pegawai.js");
+
+
+/***/ })
+
+/******/ });
