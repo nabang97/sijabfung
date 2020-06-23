@@ -74,7 +74,7 @@ class PegawaiController extends Controller
 
     public function update(Request $request){
         
-        $pegawai = Pegawai::where('nip','=',$request->data['nipBeforeUpdate'])->first();
+        $pegawai = Pegawai::where('name','=',$request->data['name'])->first();
 
         $pegawai->nip = $request->data['nip'];
         $pegawai->name = $request->data['name'];
