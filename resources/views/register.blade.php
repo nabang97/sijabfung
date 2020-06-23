@@ -1,5 +1,5 @@
 @extends('layouts.web_layout')
-@section('title', 'Dasar Hukum')
+@section('title', 'Registrasi')
 @section('style')
 <link rel="stylesheet"
     href="{{ asset('vendor\jquery-ui-themes-1.12.1\themes\base\jquery-ui.min.css') }}">
