@@ -94,6 +94,8 @@ const updatePegawai = data => {
             }
         })
         .fail(function(e) {
+            console.log(e);
+
             $(".data-alert").before(
                 `<div class="alert alert-danger">Terjadi kesalahan pada server. Silakan hubungi operator dan coba beberapa saat lagi.</div>`
             );
