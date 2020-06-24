@@ -24,7 +24,7 @@ class PegawaiController extends Controller
         
         $data = $birth->diffInYears(\Carbon\Carbon::now());
 
-        if($data < 60){
+        if($data < 65){
             $user = User::where('email', '=', $request->data['email'])->first();
             if ($user) {
                 return response()->json(['error'=> true,'message' => 'Email telah digunakan']);

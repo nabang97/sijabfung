@@ -38,7 +38,7 @@ class Pegawai extends Model
 
         $data = $birth->diffInYears(\Carbon\Carbon::now());
 
-        if($data > 60){
+        if($data > 65){
             return 1;
         }else{
             return 0;
