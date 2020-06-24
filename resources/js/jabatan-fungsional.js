@@ -43,7 +43,6 @@ const selectOptionJabatanFungsional = () => {
         selectJabfung.empty();
         selectJabfung.append(`<option>Pilih Jabatan Fungsional</option>`);
         result.forEach(element => {
-            console.log(element.id);
             selectJabfung.append(
                 `<option value=${element.id}>${element.nama}</option>`
             );
@@ -61,7 +60,6 @@ const selectOptionJenjangKategoriLingkup = data => {
             `<option>Pilih Jenjang-Kategori-Lingkup</option>`
         );
         data.forEach(element => {
-            console.log(element);
             selectKategori.append(
                 `<option value=${element.id}>${element.jenjang} - ${
                     element.kategori
@@ -69,12 +67,8 @@ const selectOptionJenjangKategoriLingkup = data => {
             );
         });
     })
-        .done(function(e) {
-            console.log(e);
-        })
-        .fail(function(e) {
-            console.log(e);
-        });
+        .done(function(e) {})
+        .fail(function(e) {});
 };
 
 const getDiklat = data => {
@@ -94,9 +88,7 @@ const getDiklat = data => {
             }
             $("#modalViewDiklatLabel").html(data.name);
         })
-        .fail(function(e) {
-            console.log(e);
-        });
+        .fail(function(e) {});
 };
 
 $(document).ready(() => {
