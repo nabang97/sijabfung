@@ -18,19 +18,19 @@
             <div class="search-dasar-hukum">
                 <div class="search-sijabfung-group form-inline">
                     <div class="search-input">
-                        <select type="text" name="jabatan-fungsional" id="searchInputDasarHukum"
+                        <select type="text" name="jabatan-fungsional" id="jabatan-fungsional"
                             class="form-sijabfung form-control" placeholder="Masukan kata kunci">
-                            <option value="">Pilih Jabatan Fungsional</option>
+                            <option value="0">Pilih Jabatan Fungsional</option>
                         </select>
                     </div>
                     <div class="search-input">
                         <select class="form-sijabfung form-control" name="jenjang-kategori-lingkup"
                             placeholder="Masukan kata kunci">
-                            <option value="">Pilih Jenjang - Kategori - Lingkup</option>
+                            <option value="0">Pilih Jenjang - Kategori - Lingkup</option>
                         </select>
                     </div>
                     <div class="search-button">
-                        <button type="button" class="btn-jabfung" id="searchDasarHukum">Tampilkan</button>
+                        <button type="button" class="btn-jabfung" id="searchJabfung">Tampilkan</button>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <tr>
                     <th style="width:10px">No</th>
                     <th>Nama</th>
-                    <th>TTL</th>
+                    <th>Tempat,Tanggal Lahir</th>
                     <th>Golongan</th>
                     <th>Jabatan Fungsional</th>
                     <th>Diklat yang Diikuti</th>
@@ -53,7 +53,7 @@
                 <tr>
                     <th style="width:10px">No</th>
                     <th>Nama</th>
-                    <th>TTL</th>
+                    <th>Tempat,Tanggal Lahir</th>
                     <th>Golongan</th>
                     <th>Jabatan Fungsional</th>
                     <th>Diklat yang Diikuti</th>
@@ -112,5 +112,6 @@
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/dates/date-id-ID.js') }}"></script>
 <script src="{{ asset('js/jabatan-fungsional.js') }}"></script>
 @endsection

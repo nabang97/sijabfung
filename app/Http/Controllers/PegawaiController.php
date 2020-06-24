@@ -7,15 +7,36 @@ use App\Pegawai;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Diklat;
+use DataTables;
 
 class PegawaiController extends Controller
 {
     //
-    public function index(){
+    public function index(Request $request){
+       
+            if((($request->jabfung == "0") || ($request->jabfung == "all")) && (($request->jenjang == "0") || ($request->jenjang == "all"))){
+                $pegawai = Pegawai::with(['golongans', 'jenjang_jabatan.detail_jabfung.jabfung.rumpun_jabatan.instansi_pembina', 'jenjang_jabatan.detail_jabfung.kategori'])->get();
+            }else if((($request->jabfung != "0") || ($request->jabfung != "all")) && (($request->jenjang == "0") || ($request->jenjang == "all"))){
+                $pegawai=Pegawai::select('pegawais.*')
+                ->leftJoin('jenjang_jabfung',function($join) {
+                    $join->on('jenjang_jabfung.id', '=', 'pegawais.id_jenjang_jabfung');
+                })
+                ->leftJoin('detail_jabfung',function($join) {
+                    $join->on('detail_jabfung.id', '=', 'jenjang_jabfung.id_detail_jabfung');
+                })
+                ->where('detail_jabfung.jabfung',$request->jabfung)->with(['golongans', 'jenjang_jabatan.detail_jabfung.jabfung.rumpun_jabatan.instansi_pembina', 'jenjang_jabatan.detail_jabfung.kategori'])->get();
+            }else{
+                $pegawai = Pegawai::where('id_jenjang_jabfung','=',$request->jenjang)->with(['golongans', 'jenjang_jabatan.detail_jabfung.jabfung.rumpun_jabatan.instansi_pembina', 'jenjang_jabatan.detail_jabfung.kategori'])->get();
+            }
+        
+           
+        return DataTables::of($pegawai)->toJson();
+    }
 
-        $pegawai = Pegawai::with(['golongans', 'jenjang_jabatan.detail_jabfung.jabfung.rumpun_jabatan.instansi_pembina', 'jenjang_jabatan.detail_jabfung.kategori'])->get();       
+    public function searchPegawai(Request $request){
+        $pegawai = Pegawai::where('id_jenjang_jabfung','=',$request->jenjang)->with(['golongans', 'jenjang_jabatan.detail_jabfung.jabfung.rumpun_jabatan.instansi_pembina', 'jenjang_jabatan.detail_jabfung.kategori'])->get();
 
-        return response()->json($pegawai);
+        return DataTables::of($pegawai)->toJson();
     }
 
     public function store(Request $request)
@@ -125,9 +146,26 @@ class PegawaiController extends Controller
     public function diklat(Request $request){
         $pegawai = Diklat::where('nip','=',$request->nip)->get()->sortByDesc('tahun_mengikuti')->values();
 
-        
-        return $pegawai;
+        return $pegawai;        
+    }
 
+    public function updateDiklat(Request $request)
+    {
+       $diklat = Diklat::where('nip','=',$request->data['nip'])->where('id','=',$request->data['id'])->first();
+
+        $diklat->name = $request->data['name'];
+        $diklat->tahun_mengikuti = $request->data['tahun_mengikuti'];
+        $diklat->save();
         
+        return response()->json(['error'=>false, 'message'=>'Data berhasil diperbaharui']);
+    }
+
+    public function destroyDiklat(Request $request)
+    {
+        $diklat = Diklat::where('nip','=',$request->data['nip'])->where('id','=',$request->data['id'])->first();
+
+        $diklat->delete();
+        
+        return response()->json(['error'=>false, 'message'=>'Data berhasil dihapus']);
     }
 }

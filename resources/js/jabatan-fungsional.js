@@ -1,12 +1,19 @@
 const tableJabatanFungsional = $("#tableJabatanFungsional").DataTable({
     processing: true,
+    serverSide: true,
     ajax: {
         url: "/api/pegawai",
         dataType: "json",
         cache: false,
-        dataSrc: ""
+        data: {
+            jenjang: () => {
+                return $('select[name="jenjang-kategori-lingkup"]').val();
+            },
+            jabfung: () => {
+                return $('select[name="jabatan-fungsional"]').val();
+            }
+        }
     },
-    order: [[1]],
     columns: [
         {
             render: function(data, type, row, meta) {
@@ -17,12 +24,10 @@ const tableJabatanFungsional = $("#tableJabatanFungsional").DataTable({
             data: `name`
         },
         {
-            data: {
-                birthday_date: "birthday_date",
-                birthday_place: "birthday_place"
-            },
             render: function(data, type, row, meta) {
-                return `${data.birthday_place}, ${data.birthday_date}`;
+                return `${row.birthday_place}, ${Date.parse(
+                    row.birthday_date
+                ).toString("dd MMMM yyyy")}`;
             }
         },
         {
@@ -41,7 +46,10 @@ const selectOptionJabatanFungsional = () => {
     return $.get("/api/jabatan-fungsional", function(result, status) {
         const selectJabfung = $('select[name="jabatan-fungsional"]');
         selectJabfung.empty();
-        selectJabfung.append(`<option>Pilih Jabatan Fungsional</option>`);
+        selectJabfung.append(
+            `<option value="0">Pilih Jabatan Fungsional</option>
+            <option value="all">All</option>`
+        );
         result.forEach(element => {
             selectJabfung.append(
                 `<option value=${element.id}>${element.nama}</option>`
@@ -57,7 +65,8 @@ const selectOptionJenjangKategoriLingkup = data => {
         const selectKategori = $('select[name="jenjang-kategori-lingkup"]');
         selectKategori.empty();
         selectKategori.append(
-            `<option>Pilih Jenjang-Kategori-Lingkup</option>`
+            `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>
+            <option value="all">All</option>`
         );
         data.forEach(element => {
             selectKategori.append(
@@ -100,7 +109,16 @@ $(document).ready(() => {
         const data = {
             id_jabfung: id
         };
-        selectOptionJenjangKategoriLingkup(data);
+        if (id == "all") {
+            const selectKategori = $('select[name="jenjang-kategori-lingkup"]');
+            selectKategori.empty();
+            selectKategori.append(
+                `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>
+            <option value="all">All</option>`
+            );
+        } else {
+            selectOptionJenjangKategoriLingkup(data);
+        }
     });
 
     $("#tableJabatanFungsional tbody ").on("click", "button", function() {
@@ -109,5 +127,14 @@ $(document).ready(() => {
         if (this.id == "viewDiklat") {
             getDiklat(data);
         }
+    });
+
+    $("#searchJabfung").click(() => {
+        const data = {
+            jenjang: $('select[name="jenjang-kategori-lingkup"]').val(),
+            jabfung: $('select[name="jabatan-fungsional"]').val()
+        };
+
+        tableJabatanFungsional.ajax.reload();
     });
 });

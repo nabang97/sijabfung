@@ -21,8 +21,12 @@
 </style>
 @endsection
 @section('additional-button')
-<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addPegawai" data-toggle="modal"
-    data-target="#modalAddPegawai"><i class="fas fa-download fa-sm text-white-50"></i> Tambah Data</a>
+<div class="additional-button">
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addPegawai" data-toggle="modal"
+        data-target="#modalAddPegawai"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Data Pegawai</a>
+    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addDiklat" data-toggle="modal"
+        data-target="#modalAddDiklat"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Data Diklat</a> -->
+</div>
 @endsection
 @section('content')
 <!-- DataTales Example -->
@@ -38,11 +42,10 @@
                         <th style="width:10px">No</th>
                         <th>NIP</th>
                         <th>Nama</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
+                        <th>Tempat,Tanggal Lahir</th>
                         <th>Golongan</th>
                         <th>Jabatan Fungsional</th>
-                        <th>Jenjang</th>
+                        <th>Diklat</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -51,11 +54,10 @@
                         <th style="width:10px">No</th>
                         <th>NIP</th>
                         <th>Nama</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
+                        <th>Tempat,Tanggal Lahir</th>
                         <th>Golongan</th>
                         <th>Jabatan Fungsional</th>
-                        <th>Jenjang</th>
+                        <th>Diklatt</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -326,20 +328,81 @@
     </div>
     </form>
 </div>
-@endsection
-@section('script')
-<!-- Page level plugins -->
-<script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-<!-- DATE PICKER -->
-<script
-    src="{{ asset('vendor\bootstrap-datepicker-1.9.0-dist\js\bootstrap-datepicker.min.js') }}">
-</script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="{{ asset('vendor/jquery-validation-1.19.2/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('vendor/jquery-validation-1.19.2/additional-methods.min.js') }}"></script>
-<!-- Page level custom scripts -->
-<script type="text/javascript" src="{{ asset('vendor/dates/date-id-ID.js') }}"></script>
-<script src="{{ asset('js/demo/datatables-pegawai.js') }}"></script>
-<script src="{{ asset('js/script.js') }}"></script>
-@endsection
+<!-- Modal -->
+<div class="modal fade" id="modalViewDiklat" tabindex="-1" role="dialog" aria-labelledby="modalViewDiklatLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalViewDiklatLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="table-container">
+                            <div class="table-jabfung">
+                                <table class="table table-bordered" id="tableDiklat" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:10px">No</th>
+                                            <th>Nama</th>
+                                            <th>Tahun</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="width:10px">No</th>
+                                            <th>Nama</th>
+                                            <th>Tahun</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 edit-diklat-container">
+                        <div clas="">
+                            <h5>Edit Diklat</h5>
+                            <form id="form-edit-diklat">
+                                <input type="text" class="form-control" name="id_diklat" hidden>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nama Diklat</label>
+                                    <input type="text" class="form-control" name="nama_diklat">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Tahun Mengikuti</label>
+                                    <input type="text" class="form-control" name="tahun_diklat">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endsection
+    @section('script')
+    <!-- Page level plugins -->
+    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <!-- DATE PICKER -->
+    <script
+        src="{{ asset('vendor\bootstrap-datepicker-1.9.0-dist\js\bootstrap-datepicker.min.js') }}">
+    </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{ asset('vendor/jquery-validation-1.19.2/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-validation-1.19.2/additional-methods.min.js') }}">
+    </script>
+    <!-- Page level custom scripts -->
+    <script type="text/javascript" src="{{ asset('vendor/dates/date-id-ID.js') }}"></script>
+    <script src="{{ asset('js/demo/datatables-pegawai.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+    @endsection

@@ -28,7 +28,8 @@ Route::get('dasar-hukum/all', 'DasarHukumController@showPost');
 Route::get('/api/dasar-hukum/newest', 'DasarHukumController@newest');
 Route::get('/api/dasar-hukum/all/search' , 'DasarHukumController@search');
 Route::view('jabatan-fungsional', 'jabatan_fungsional');
-Route::get('api/pegawai', 'PegawaiController@index');
+Route::get('/api/pegawai', 'PegawaiController@index');
+Route::get('/api/pegawai/search', 'PegawaiController@serachPegawai');
 Route::get('/pegawai/diklat','PegawaiController@diklat');
 Route::get('/api/jabatan-fungsional', 'JabatanFungsionalController@index');
 Route::get('/api/jenjang-jabatan', 'JenjangJabatanController@index');
@@ -101,6 +102,8 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::post('/api/pegawai/profile/update', 'PegawaiController@update');
     Route::post('/api/pegawai/account', 'PegawaiController@getAccount');
     Route::post('/api/pegawai/account/update', 'PegawaiController@updateAccount');
+    Route::post('/api/pegawai/diklat/update','PegawaiController@updateDiklat');
+    Route::post('/api/pegawai/diklat/destroy','PegawaiController@destroyDiklat');
 
     // Route::post('api/register/create', 'PegawaiController@store');
     // Route::post('api/register/create/account', 'PegawaiController@createAccount');

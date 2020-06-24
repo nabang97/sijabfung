@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\JabatanFungsional;
 
 use App\RumpunJabatan;
+use DataTables;
 
 class JabatanFungsionalController extends Controller
 {
