@@ -14,9 +14,8 @@ const tableJabatanFungsional = $("#tableJabatanFungsional").DataTable({
             }
         }
     },
-    columns: [
-        {
-            render: function(data, type, row, meta) {
+    columns: [{
+            render: function (data, type, row, meta) {
                 return meta.row + meta.settings._iDisplayStart + 1;
             }
         },
@@ -24,10 +23,10 @@ const tableJabatanFungsional = $("#tableJabatanFungsional").DataTable({
             data: `name`
         },
         {
-            render: function(data, type, row, meta) {
-                return `${row.birthday_place}, ${Date.parse(
+            render: function (data, type, row, meta) {
+                return `${row.birthday_place}, ${new Date(
                     row.birthday_date
-                ).toString("dd MMMM yyyy")}`;
+                ).toString('d MMMM yyyy')}`;
             }
         },
         {
@@ -43,49 +42,49 @@ const tableJabatanFungsional = $("#tableJabatanFungsional").DataTable({
 });
 
 const selectOptionJabatanFungsional = () => {
-    return $.get("/api/jabatan-fungsional", function(result, status) {
-        const selectJabfung = $('select[name="jabatan-fungsional"]');
-        selectJabfung.empty();
-        selectJabfung.append(
-            `<option value="0">Pilih Jabatan Fungsional</option>
-            <option value="all">All</option>`
-        );
-        result.forEach(element => {
+    return $.get("/api/jabatan-fungsional", function (result, status) {
+            const selectJabfung = $('select[name="jabatan-fungsional"]');
+            selectJabfung.empty();
             selectJabfung.append(
-                `<option value=${element.id}>${element.nama}</option>`
+                `<option value="0">Pilih Jabatan Fungsional</option>
+            <option value="all">All</option>`
             );
-        });
-    })
+            result.forEach(element => {
+                selectJabfung.append(
+                    `<option value=${element.id}>${element.nama}</option>`
+                );
+            });
+        })
         .done(e => {})
-        .fail(function(e) {});
+        .fail(function (e) {});
 };
 
 const selectOptionJenjangKategoriLingkup = data => {
-    $.get("/api/jenjang-jabatan/option", data, function(data, status) {
-        const selectKategori = $('select[name="jenjang-kategori-lingkup"]');
-        selectKategori.empty();
-        selectKategori.append(
-            `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>
-            <option value="all">All</option>`
-        );
-        data.forEach(element => {
+    $.get("/api/jenjang-jabatan/option", data, function (data, status) {
+            const selectKategori = $('select[name="jenjang-kategori-lingkup"]');
+            selectKategori.empty();
             selectKategori.append(
-                `<option value=${element.id}>${element.jenjang} - ${
+                `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>
+            <option value="all">All</option>`
+            );
+            data.forEach(element => {
+                selectKategori.append(
+                    `<option value=${element.id}>${element.jenjang} - ${
                     element.kategori
                 } - ${element.linkup == 1 ? "Pusat" : "Daerah"}</option>`
-            );
-        });
-    })
-        .done(function(e) {})
-        .fail(function(e) {});
+                );
+            });
+        })
+        .done(function (e) {})
+        .fail(function (e) {});
 };
 
 const getDiklat = data => {
     const tableDiklat = $("#tableDiklat").DataTable();
     tableDiklat.clear().draw();
 
-    $.get("/pegawai/diklat", data, function(data, status) {})
-        .done(function(e) {
+    $.get("/pegawai/diklat", data, function (data, status) {})
+        .done(function (e) {
             if (e.length != 0) {
                 let no = 0;
                 e.forEach(element => {
@@ -97,7 +96,7 @@ const getDiklat = data => {
             }
             $("#modalViewDiklatLabel").html(data.name);
         })
-        .fail(function(e) {});
+        .fail(function (e) {});
 };
 
 $(document).ready(() => {
@@ -121,7 +120,7 @@ $(document).ready(() => {
         }
     });
 
-    $("#tableJabatanFungsional tbody ").on("click", "button", function() {
+    $("#tableJabatanFungsional tbody ").on("click", "button", function () {
         var data = tableJabatanFungsional.row($(this).parents("tr")).data();
 
         if (this.id == "viewDiklat") {

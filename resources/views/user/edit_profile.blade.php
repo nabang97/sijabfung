@@ -32,7 +32,7 @@
                     <label for="unitKerja">Tanggal Lahir</label>
                     <input type="text" name="tanggal_lahir" class="form-control form-sijabfung datepicker"
                         placeholder=""
-                        value="{{ date('m-d-yy', strtotime(Auth::user()->pegawai->birthday_date)) }}"
+                        value="{{ date('d-m-Y', strtotime(Auth::user()->pegawai->birthday_date)) }}"
                         required>
                 </div>
             </div>

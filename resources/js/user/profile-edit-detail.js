@@ -11,7 +11,7 @@ const messageSuccess = (element, message) => {
         </button>
     </div>`
     );
-}
+};
 
 if (typeof Storage !== "undefined") {
     if (sessionStorage.getItem("edit") === "true") {
@@ -27,40 +27,41 @@ if (typeof Storage !== "undefined") {
     alert("Sorry, your browser does not support Web Storage...");
 }
 
-
 const selectOptionRumpunJabatan = value => {
     return $.get(
-            "/api/rumpun-jabatan-option", {
-                id: value
-            },
-            function (result, status) {
-                const selectRumpunJabatan = $('select[name="rumpun_jabatan"]');
-                selectRumpunJabatan.empty();
+        "/api/rumpun-jabatan-option",
+        {
+            id: value
+        },
+        function(result, status) {
+            const selectRumpunJabatan = $('select[name="rumpun_jabatan"]');
+            selectRumpunJabatan.empty();
+            selectRumpunJabatan.append(
+                `<option value="0">Pilih Rumpun Jabatan</option>`
+            );
+            result.forEach(element => {
                 selectRumpunJabatan.append(
-                    `<option value="0">Pilih Rumpun Jabatan</option>`
+                    `<option value=${element.id}>${element.nama}</option>`
                 );
-                result.forEach(element => {
-                    selectRumpunJabatan.append(
-                        `<option value=${element.id}>${element.nama}</option>`
-                    );
-                });
-            }
-        )
-        .done(function (e) {
+            });
+        }
+    )
+        .done(function(e) {
             console.log(e);
         })
-        .fail(function (e) {})
-        .always(function (e) {});
+        .fail(function(e) {})
+        .always(function(e) {});
 };
 
 const selectOptionJabatanFungsional = value => {
     console.log(value);
 
     return $.get(
-        "/api/jabatan-fungsional-option", {
+        "/api/jabatan-fungsional-option",
+        {
             id: value
         },
-        function (result, status) {
+        function(result, status) {
             const selectJabfung = $('select[name="jabatan_fungsional"]');
             selectJabfung.empty();
             selectJabfung.append(
@@ -73,33 +74,33 @@ const selectOptionJabatanFungsional = value => {
                 );
             });
         }
-    ).fail(function (e) {});
+    ).fail(function(e) {});
 };
 
 const selectOptionJenjangKategoriLingkup = data => {
-    return $.get("/api/jenjang-jabatan/option", data, function (data, status) {
-            const selectKategori = $('select[name="jenjang_kategori_lingkup"]');
-            selectKategori.empty();
-            selectKategori.append(
-                `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>`
-            );
-            data.forEach(element => {
-                console.log(element);
+    return $.get("/api/jenjang-jabatan/option", data, function(data, status) {
+        const selectKategori = $('select[name="jenjang_kategori_lingkup"]');
+        selectKategori.empty();
+        selectKategori.append(
+            `<option value="0">Pilih Jenjang-Kategori-Lingkup</option>`
+        );
+        data.forEach(element => {
+            console.log(element);
 
-                selectKategori.append(
-                    `<option value=${element.id}>${element.jenjang} - ${
+            selectKategori.append(
+                `<option value=${element.id}>${element.jenjang} - ${
                     element.kategori
                 } - ${element.lingkup == 1 ? "Pusat" : "Daerah"}</option>`
-                );
-            });
-        })
-        .done(function (e) {
+            );
+        });
+    })
+        .done(function(e) {
             console.log(e);
         })
-        .fail(function (e) {
+        .fail(function(e) {
             console.log(e);
         })
-        .always(function (e) {
+        .always(function(e) {
             console.log(e);
         });
 };
@@ -109,10 +110,10 @@ const updateProfile = data => {
         $(".alert-sijabfung").remove();
     }
     $.post("/profile/update", {
-            _token: CSRF_TOKEN,
-            data: data
-        })
-        .done(function (e) {
+        _token: CSRF_TOKEN,
+        data: data
+    })
+        .done(function(e) {
             if (e.error) {
                 $("#updateProfile").before(
                     `<div class="alert-sijabfung alert-sijabfung-danger">${e.message}</div>`
@@ -120,7 +121,10 @@ const updateProfile = data => {
             } else {
                 if (typeof Storage !== "undefined") {
                     sessionStorage.setItem("edit", true);
-                    sessionStorage.setItem("messages", "Profile berhasil diperbarui");
+                    sessionStorage.setItem(
+                        "messages",
+                        "Profile berhasil diperbarui"
+                    );
                     window.location.reload();
                 } else {
                     alert(
@@ -129,13 +133,13 @@ const updateProfile = data => {
                 }
             }
         })
-        .fail(function (e) {});
+        .fail(function(e) {});
 };
 
 // add the rule here
 $.validator.addMethod(
     "valueEquals",
-    function (value, element, arg) {
+    function(value, element, arg) {
         return arg != value;
     },
     "Value must equal arg."
@@ -143,7 +147,7 @@ $.validator.addMethod(
 
 $.validator.addMethod(
     "valueNotEquals",
-    function (value, element, arg) {
+    function(value, element, arg) {
         if (value == $('input[name="password"]').val()) {
             return true;
         }
@@ -154,7 +158,7 @@ $.validator.addMethod(
 
 $.validator.addMethod(
     "passwordCheck",
-    function (value, element, arg) {
+    function(value, element, arg) {
         var reg = new RegExp(
             "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
         );
@@ -164,6 +168,14 @@ $.validator.addMethod(
         return false;
     },
     "Password must be eight characters or longer, contain at least 1 lowercase alphabetical character, 1 uppercase alphabetical character,1 numeric character, least one special character"
+);
+
+$.validator.addMethod(
+    "indonesianDate",
+    function(value, element) {
+        return Date.parseExact(value, "d-M-yyyy");
+    },
+    "Format tanggal tidak valid"
 );
 
 $("#form-profile").validate({
@@ -182,7 +194,7 @@ $("#form-profile").validate({
         },
         tanggal_lahir: {
             required: true,
-            date: true
+            indonesianDate: true
         },
         golongan: {
             required: true,
@@ -249,15 +261,17 @@ $("#form-profile").validate({
             required: "Unit kerja is required"
         }
     },
-    submitHandler: function (form) {
+    submitHandler: function(form) {
         const data = {
             nip: $('input[name="nip"]').val(),
             name: $('input[name="nama"]').val(),
             birthday_place: $('input[name="tempat_lahir"]').val(),
-            birthday_date: $('input[name="tanggal_lahir"]').val() != null ?
-                Date.parse(
-                    $('input[name="tanggal_lahir"]').val()
-                ).toString("yyyy-MM-dd") : null,
+            birthday_date:
+                $('input[name="tanggal_lahir"]').val() != null
+                    ? Date.parse(
+                          $('input[name="tanggal_lahir"]').val()
+                      ).toString("yyyy-MM-dd")
+                    : null,
             golongan: $('select[name="golongan"]').val(),
             id_jenjang_jabfung: $(
                 'select[name="jenjang_kategori_lingkup"]'
@@ -270,15 +284,15 @@ $("#form-profile").validate({
 });
 
 $(".datepicker").datepicker({
-    dateFormat: "mm-dd-yy",
+    dateFormat: "dd-mm-yy",
     todayBtn: "linked",
     clearBtn: true,
     changeYear: true,
     changeMonth: true,
-    yearRange: "c-60:c"
+    yearRange: "c-65:c"
 });
 // show option rumpun jabatan
-$('select[name="instansi_pembina"]').change(function () {
+$('select[name="instansi_pembina"]').change(function() {
     console.log($(this).val());
 
     selectOptionRumpunJabatan($(this).val());
@@ -292,7 +306,7 @@ $('select[name="instansi_pembina"]').change(function () {
     );
 });
 // show option jabatan fungsional
-$('select[name="rumpun_jabatan"]').change(function () {
+$('select[name="rumpun_jabatan"]').change(function() {
     $('select[name="jenjang_kategori_lingkup"]').empty();
     $('select[name="jenjang_kategori_lingkup"]').append(
         `<option>Pilih Jenjang - Kategori - Lingkup</option>`
@@ -300,7 +314,7 @@ $('select[name="rumpun_jabatan"]').change(function () {
     selectOptionJabatanFungsional($(this).val());
 });
 
-$('select[name="jabatan_fungsional"]').change(function () {
+$('select[name="jabatan_fungsional"]').change(function() {
     const data = {
         id_jabfung: $(this).val()
     };
@@ -327,16 +341,21 @@ $('input[name="photo-profile"]').change(e => {
             if (result.error === false) {
                 if (typeof Storage !== "undefined") {
                     sessionStorage.setItem("photo-success", true);
-                    sessionStorage.setItem("messages", "Foto profile berhasil diperbarui");
+                    sessionStorage.setItem(
+                        "messages",
+                        "Foto profile berhasil diperbarui"
+                    );
                     window.location.reload();
                 } else {
-                    alert("Sorry, your browser does not support Web Storage...");
+                    alert(
+                        "Sorry, your browser does not support Web Storage..."
+                    );
                 }
             }
-
         },
         error: responseError => {
-            $("#form-photo").before(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
+            $("#form-photo")
+                .before(`<div class="alert alert-danger alert-dismissible fade show" role="alert">
     Terjadi kesalahan saat mengubah password. Silakan hubungi kontak yang tersedia.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
