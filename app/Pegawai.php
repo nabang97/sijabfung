@@ -44,4 +44,9 @@ class Pegawai extends Model
             return 0;
         }
     }
+
+    public function getNipAttribute($value)
+    {
+        return (string)$value;
+    }
 }

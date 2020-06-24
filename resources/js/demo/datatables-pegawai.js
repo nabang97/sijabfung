@@ -87,7 +87,7 @@ const updatePegawai = data => {
                     `<div class="alert alert-danger">${e.message}</div>`
                 );
             } else {
-                nipBeforeUpdate = parseInt(data.nip);
+                nipBeforeUpdate = data.nip;
                 $(".data-alert").before(
                     `<div class="alert alert-success">${e.message}</div>`
                 );
@@ -777,7 +777,7 @@ $(document).ready(function() {
         },
         submitHandler: form => {
             let data = {
-                nipBeforeUpdate: parseInt(nipBeforeUpdate),
+                nipBeforeUpdate: nipBeforeUpdate,
                 nip: $(form)
                     .find('input[name="nip"]')
                     .val(),
@@ -802,6 +802,7 @@ $(document).ready(function() {
                     .find('input[name="unit_kerja_saat_ini"]')
                     .val()
             };
+            console.log(data);
 
             updatePegawai(data);
         }
