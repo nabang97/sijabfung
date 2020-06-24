@@ -42,7 +42,7 @@
             <thead>
                 <tr>
                     <th style="width:10px">No</th>
-                    <th>Judul</th>
+                    <th>Nama</th>
                     <th>TTL</th>
                     <th>Golongan</th>
                     <th>Jabatan Fungsional</th>
@@ -52,7 +52,7 @@
             <tfoot>
                 <tr>
                     <th style="width:10px">No</th>
-                    <th>Judul</th>
+                    <th>Nama</th>
                     <th>TTL</th>
                     <th>Golongan</th>
                     <th>Jabatan Fungsional</th>
