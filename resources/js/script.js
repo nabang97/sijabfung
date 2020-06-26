@@ -17,4 +17,9 @@ $(document).ready(function () {
 
     getGolongan();
 
+    $(`button[button-type="close"]`).click((e) => {
+        console.log(e.target.getAttribute('button-target'));
+        $(`.${e.target.getAttribute('button-target')}`).hide();
+    });
+
 });

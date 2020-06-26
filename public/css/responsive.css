@@ -40,24 +40,30 @@
             "navbar-menu-list"
             ".";
     }
+
     .navbar-menu-sb > ul.navbar-menu-list {
         margin: 0px;
     }
+
     .item-footer:nth-child(1),
     .item-footer:nth-child(2) {
         text-align: center;
         margin: 0px auto !important;
     }
+
     .footer-nav {
         margin: 0px auto !important;
     }
+
     .contact {
         text-align: center;
         margin: 0px auto !important;
     }
+
     .search-sijabfung-group {
         display: unset;
     }
+
     .search-sijabfung-group > div {
         display: unset !important;
     }
@@ -65,14 +71,21 @@
     #dasar-hukum-jumbotron {
         background-position: center !important;
     }
+
     .edit-information-details {
         flex-direction: column-reverse;
     }
+
     .profile-container {
         flex-direction: column;
         margin: 0px;
     }
+
     .sijabfung-inline-group {
         flex-direction: column !important;
+    }
+
+    main .container.register {
+        padding: 0px;
     }
 }

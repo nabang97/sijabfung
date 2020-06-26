@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Diklat;
 use DataTables;
+use App\Exports\Exports\PegawaiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
@@ -149,6 +151,31 @@ class PegawaiController extends Controller
         return $pegawai;        
     }
 
+    public function storeDiklat(Request $request)
+    {
+        $diklat = Diklat::where('nip','=',$request->data['nip'])->get()->sortBy('id');
+        $no = 0;      
+        $stack=array();  
+        foreach($diklat as $dik){
+            $no=$no+1;
+            if($no != $dik->id){
+                array_push($stack, $no);
+            }
+        }
+        if (empty($stack)) {
+            $id = count($diklat)+1;
+            array_push($stack, $id);
+        }
+        $newdiklat = new Diklat();
+        $newdiklat->id= $stack[0];
+        $newdiklat->nip = $request->data['nip'];
+        $newdiklat->name = $request->data['name'];
+        $newdiklat->tahun_mengikuti = $request->data['tahun_mengikuti'];
+        $newdiklat->save();
+        
+        return response()->json(['error'=>false, 'message'=>'Data berhasil diperbaharui']);
+    }
+
     public function updateDiklat(Request $request)
     {
        $diklat = Diklat::where('nip','=',$request->data['nip'])->where('id','=',$request->data['id'])->first();
@@ -167,5 +194,10 @@ class PegawaiController extends Controller
         $diklat->delete();
         
         return response()->json(['error'=>false, 'message'=>'Data berhasil dihapus']);
+    }
+
+    public function export() 
+    {
+        return Excel::download(new PegawaiExport, 'jabatan-fungsional-'.time().'.xlsx');
     }
 }

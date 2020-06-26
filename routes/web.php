@@ -102,8 +102,10 @@ Route::group(['middleware' => ['auth', 'admin']], function(){
     Route::post('/api/pegawai/profile/update', 'PegawaiController@update');
     Route::post('/api/pegawai/account', 'PegawaiController@getAccount');
     Route::post('/api/pegawai/account/update', 'PegawaiController@updateAccount');
+    Route::post('/api/pegawai/diklat/store','PegawaiController@storeDiklat');
     Route::post('/api/pegawai/diklat/update','PegawaiController@updateDiklat');
     Route::post('/api/pegawai/diklat/destroy','PegawaiController@destroyDiklat');
+    Route::get('export', 'PegawaiController@export')->name('export');
 
     // Route::post('api/register/create', 'PegawaiController@store');
     // Route::post('api/register/create/account', 'PegawaiController@createAccount');

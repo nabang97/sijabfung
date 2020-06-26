@@ -24,6 +24,8 @@
 <div class="additional-button">
     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addPegawai" data-toggle="modal"
         data-target="#modalAddPegawai"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Data Pegawai</a>
+    <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"
+        href="{{ route('export') }}">Export User Data</a>
     <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" id="addDiklat" data-toggle="modal"
         data-target="#modalAddDiklat"><i class="fas fa-plus fa-sm text-white-50"></i> Tambah Data Diklat</a> -->
 </div>
@@ -45,6 +47,7 @@
                         <th>Tempat,Tanggal Lahir</th>
                         <th>Golongan</th>
                         <th>Jabatan Fungsional</th>
+                        <th>Unit Kerja</th>
                         <th>Diklat</th>
                         <th>Action</th>
                     </tr>
@@ -57,6 +60,7 @@
                         <th>Tempat,Tanggal Lahir</th>
                         <th>Golongan</th>
                         <th>Jabatan Fungsional</th>
+                        <th>Unit Kerja</th>
                         <th>Diklatt</th>
                         <th>Action</th>
                     </tr>
@@ -341,6 +345,9 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <button type="button" class="btn btn-outline-primary form-control mb-4 m-2" id="btnAddDiklat">
+                        Tambah Diklat
+                    </button>
                     <div class="col">
                         <div class="table-container">
                             <div class="table-jabfung">
@@ -367,6 +374,27 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4 add-diklat-container">
+                        <div clas="">
+                            <h5>Add Diklat</h5>
+                            <form id="form-add-diklat">
+                                <input type="text" class="form-control" name="id_diklat" hidden>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nama Diklat</label>
+                                    <input type="text" class="form-control" name="nama_diklat">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Tahun Mengikuti</label>
+                                    <input type="text" class="form-control" name="tahun_diklat">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Tambahkan</button>
+                                <button type="button" class="btn btn-secondary" button-type="close"
+                                    button-target="add-diklat-container">
+                                    Cancel
+                                </button>
+                            </form>
+                        </div>
+                    </div>
                     <div class="col-md-4 edit-diklat-container">
                         <div clas="">
                             <h5>Edit Diklat</h5>
@@ -381,6 +409,10 @@
                                     <input type="text" class="form-control" name="tahun_diklat">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                <button type="button" class="btn btn-secondary" button-type="close"
+                                    button-target="edit-diklat-container">
+                                    Cancel
+                                </button>
                             </form>
                         </div>
                     </div>
