@@ -83,7 +83,7 @@ class PegawaiExport extends DefaultValueBinder implements WithCustomValueBinder,
 
     public function bindValue(Cell $cell, $value)
     {
-        if (is_numeric($value)) {
+        if (is_numeric($value) && (strlen($value) == 18)) {
             
             $cell->setValueExplicit($value, DataType::TYPE_STRING);
 
